@@ -4,15 +4,18 @@ import org.bouncycastle.crypto.PBEParametersGenerator;
 import org.bouncycastle.crypto.digests.SHA256Digest;
 import org.bouncycastle.crypto.generators.PKCS5S2ParametersGenerator;
 import org.bouncycastle.crypto.params.KeyParameter;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.util.Strings;
 import org.bouncycastle.util.encoders.Hex;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
+import java.security.Security;
 
 public class Encrypt {
     public static byte[] PBKDF2(char[] password, byte[] salt,
@@ -30,19 +33,20 @@ public class Encrypt {
     }
 
     public static String CBC(String password, byte[] iv, String salt) {
-        SecretKeySpec keySalt = generateKey(salt);
 
         try {
-            Cipher cipher = Cipher.getInstance("AES/CBC/NoPadding", "BC");
-            byte[] input = Hex.decode(password);
+            SecretKeySpec keySalt = generateKey(salt);
+            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding", "BC");
+            System.out.println(password);
+            byte[] input = Hex.encode(password.getBytes());
 
-            cipher.init(Cipher.ENCRYPT_MODE, keySalt, new IvParameterSpec(iv));
+            cipher.init(Cipher.ENCRYPT_MODE, keySalt, new IvParameterSpec(iv, 0, 16));
 
-            byte[] passwordCBC = cipher.doFinal(input);
-
-            return passwordCBC.toString();
+            byte[] passwordCBC = cipher.doFinal(Hex.decode(input));
+            String encryptedPassword = new String(Hex.encode(passwordCBC));
+            return encryptedPassword;
         } catch (Exception e) {
-            System.out.println("Deu ruim fazendo o cipher");
+            System.out.println("Deu ruim fazendo o cipher " +  e.getMessage());
             return "";
         }
     }
@@ -72,4 +76,9 @@ public class Encrypt {
 
         return digest.digest();
     }
+    public static void initProvider() {
+        Security.addProvider(new BouncyCastleProvider());
+
+    }
+
 }

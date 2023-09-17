@@ -8,6 +8,7 @@ public class File {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true));
             writer.write(user);
+            writer.append("\n" + " ");
             writer.append(password);
             writer.close();
         } catch (Exception err) {

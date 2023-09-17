@@ -14,14 +14,19 @@ public class Main {
         System.out.println("Informe sua senha");
         String password = keyboard.next();
 
+        Encrypt.initProvider();
         String nameEncrypted = Encrypt.SHA256(name);
 
         String salt = Encrypt.SHA256(password);
-        byte[] iv = Encrypt.PBKDF2(password.toCharArray(), salt.getBytes(), 3);
+        byte[] iv = Encrypt.PBKDF2(password.toCharArray(), salt.getBytes(), 1);
 
-        String passwordCBC = Encrypt.CBC(password, iv, salt);
+        String passwordCBC = Encrypt.CBC(password.toString(), iv, salt);
 
-        File.write(nameEncrypted, passwordCBC, "abobora");
+        File.write(nameEncrypted, passwordCBC, "encrypted-credentials.txt");
+        String ivCBC = Encrypt.CBC(iv.toString(), iv, salt);
+        String saltCBC = Encrypt.CBC(salt, iv, salt);
+        File.write(ivCBC, saltCBC, "iv-salt-encrypted.txt");
+
 
         keyboard.close();
     }
