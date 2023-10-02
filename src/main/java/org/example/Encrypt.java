@@ -32,21 +32,31 @@ public class Encrypt {
                 .generateDerivedParameters(256)).getKey();
     }
 
-    public static String CBC(String password, byte[] iv, String salt) {
-
+    public static String CBCEncrypt(String password, byte[] iv, String salt) {
         try {
             SecretKeySpec keySalt = generateKey(salt);
-            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding", "BC");
-            System.out.println(password);
-            byte[] input = Hex.encode(password.getBytes());
-
+            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
             cipher.init(Cipher.ENCRYPT_MODE, keySalt, new IvParameterSpec(iv, 0, 16));
 
-            byte[] passwordCBC = cipher.doFinal(Hex.decode(input));
-            String encryptedPassword = new String(Hex.encode(passwordCBC));
+            byte[] passwordCBC = cipher.doFinal(password.getBytes());
+            String encryptedPassword = Hex.toHexString(passwordCBC);
             return encryptedPassword;
         } catch (Exception e) {
             System.out.println("Deu ruim fazendo o cipher " +  e.getMessage());
+            return "";
+        }
+    }
+
+    public static String CBCDecrypt(String password, byte[] iv, String salt) {
+        try {
+            SecretKeySpec keySalt = generateKey(salt);
+            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+                cipher.init(Cipher.DECRYPT_MODE, keySalt, new IvParameterSpec(iv, 0, 16));
+
+            byte[] output = cipher.doFinal(Hex.decode(password));
+            return new String(output);
+        } catch (Exception e) {
+            System.out.println("Deu ruim fazendo o cipher decrypt" +  e.getMessage());
             return "";
         }
     }
@@ -70,7 +80,7 @@ public class Encrypt {
 
     private static byte[] computeDigest(byte[] data)
             throws NoSuchProviderException, NoSuchAlgorithmException {
-        MessageDigest digest = MessageDigest.getInstance("SHA-256", "BC");
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
 
         digest.update(data);
 
