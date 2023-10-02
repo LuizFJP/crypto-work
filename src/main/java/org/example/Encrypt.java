@@ -11,7 +11,6 @@ import org.bouncycastle.util.encoders.Hex;
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
-import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
@@ -39,10 +38,9 @@ public class Encrypt {
             cipher.init(Cipher.ENCRYPT_MODE, keySalt, new IvParameterSpec(iv, 0, 16));
 
             byte[] passwordCBC = cipher.doFinal(password.getBytes());
-            String encryptedPassword = Hex.toHexString(passwordCBC);
-            return encryptedPassword;
+            return Hex.toHexString(passwordCBC);
         } catch (Exception e) {
-            System.out.println("Deu ruim fazendo o cipher " +  e.getMessage());
+            System.out.println("Falha ao cifrar suas informações, tente novamente  " + e.getMessage());
             return "";
         }
     }
@@ -51,12 +49,12 @@ public class Encrypt {
         try {
             SecretKeySpec keySalt = generateKey(salt);
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-                cipher.init(Cipher.DECRYPT_MODE, keySalt, new IvParameterSpec(iv, 0, 16));
+            cipher.init(Cipher.DECRYPT_MODE, keySalt, new IvParameterSpec(iv, 0, 16));
 
             byte[] output = cipher.doFinal(Hex.decode(password));
             return new String(output);
         } catch (Exception e) {
-            System.out.println("Deu ruim fazendo o cipher decrypt" +  e.getMessage());
+            System.out.println("Falha ao decifrar suas informações, tente novamente" + e.getMessage());
             return "";
         }
     }
@@ -72,7 +70,7 @@ public class Encrypt {
             return Hex.toHexString(
                     computeDigest(Strings.toByteArray(word)));
         } catch (NoSuchProviderException | NoSuchAlgorithmException e) {
-            System.out.println("Deu fezes");
+            System.out.println("Falha ao encriptar sua informação");
             return "";
         }
 
@@ -86,6 +84,7 @@ public class Encrypt {
 
         return digest.digest();
     }
+
     public static void initProvider() {
         Security.addProvider(new BouncyCastleProvider());
 

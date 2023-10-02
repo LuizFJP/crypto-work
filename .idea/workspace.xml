@@ -4,11 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a9184e77-7a11-4f63-9deb-11700cd78adc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/IVDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/UserDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/encrypted-credentials.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/iv-salt.txt" beforeDir="false" />
+    <list default="true" id="a9184e77-7a11-4f63-9deb-11700cd78adc" name="Changes" comment="Refactored sout messages">
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/encrypted-credentials-0dd0029404cbe8bbad2cd84ec0f5089e4ca29d46719323b15595ffa765a88ffe.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/iv-salt-encrypted-0dd0029404cbe8bbad2cd84ec0f5089e4ca29d46719323b15595ffa765a88ffe.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Encrypt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Encrypt.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/File.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/File.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
@@ -67,12 +69,14 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "android.gradle.sync.needed": "true",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "/home/luiz/Documents/lib-java-cripto",
+    "last_opened_file_path": "/home/gusdev028/Desktop/main/projects/udesc/redes/crypto-work",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -123,26 +127,16 @@
       <workItem from="1695864415537" duration="591000" />
       <workItem from="1696199330518" duration="38000" />
       <workItem from="1696199778194" duration="19009000" />
+      <workItem from="1696242468611" duration="1339000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/org/example/Main.java</url>
-          <line>78</line>
-          <option name="timeStamp" value="11" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/org/example/Main.java</url>
-          <line>38</line>
-          <option name="timeStamp" value="21" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="Refactored sout messages" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactored sout messages" />
   </component>
 </project>

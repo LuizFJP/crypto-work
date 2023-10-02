@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.util.List;
 
 public class File {
     public static void write(String user, String password, String fileName) {
@@ -15,23 +14,33 @@ public class File {
             writer.append(password);
             writer.close();
         } catch (Exception err) {
-            System.out.println("Deu ruim pra fazer o writer" + err.getMessage());
+            System.out.println("Falha ao escrever o arquivo" + err.getMessage());
         }
     }
 
     public static IVDTO readIv(String fileName) {
         String[] lines = read(fileName);
         IVDTO ivAndSalt = new IVDTO();
-        ivAndSalt.setIv(lines[0]);
-        ivAndSalt.setSalt(lines[1]);
+        assert lines != null;
+        if(lines.length >= 2){
+            ivAndSalt.setIv(lines[0]);
+            ivAndSalt.setSalt(lines[1]);
+        }else {
+            System.out.println("Problemas ao ler o arquivo de IV e Salt");
+        }
         return ivAndSalt;
     }
 
     public static UserDTO readUser(String fileName) {
         String[] lines = read(fileName);
         UserDTO user = new UserDTO();
-        user.setName(lines[0]);
-        user.setPassword(lines[1]);
+        assert lines != null;
+        if(lines.length >= 2) {
+            user.setName(lines[0]);
+            user.setPassword(lines[1]);
+        }else {
+            System.out.println("Problemas ao ler o arquivo de IV e Salt");
+        }
         return user;
 
     }
@@ -44,7 +53,7 @@ public class File {
             }
             return lines;
         } catch (Exception err) {
-            System.out.println("Deu ruim pra fazer o reader" + err.getMessage());
+            System.out.println("Falha ao ler o arquivo"  + err.getMessage());
             return null;
         }
     }

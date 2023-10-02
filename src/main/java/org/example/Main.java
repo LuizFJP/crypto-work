@@ -1,9 +1,5 @@
 package org.example;
 
-import org.bouncycastle.util.encoders.Hex;
-
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -25,21 +21,15 @@ public class Main {
         String nameEncrypted = Encrypt.SHA256(name);
 
         String salt = Encrypt.SHA256(password);
-        System.out.println("Salt " + salt);
 
         byte[] iv = Encrypt.PBKDF2(password.toCharArray(), salt.getBytes(), 1);
-        System.out.println("iv " + iv);
 
         if (option == 1) {
             String ivSaltEncryptedFileName = "iv-salt-encrypted-" + nameEncrypted + ".txt";
             IVDTO ivAndSalt = File.readIv(ivSaltEncryptedFileName);
             String ivRecovered = Encrypt.CBCDecrypt(ivAndSalt.getIv(), iv, salt);
             byte[] ivR= stringToByteArray(ivRecovered);
-            System.out.println("iv recovered " + ivR);
             String saltRecovered =  Encrypt.CBCDecrypt(ivAndSalt.getSalt(), iv, salt);
-            System.out.println("Salt recovered " + saltRecovered);
-
-
             String passwordCBC = Encrypt.CBCEncrypt(password, ivR, saltRecovered);
 
             String encryptedCredentialsFileName = "encrypted-credentials-" + nameEncrypted + ".txt";
@@ -66,7 +56,7 @@ public class Main {
     }
 
     public static byte[] stringToByteArray(String input) {
-        input = input.replaceAll("\\[|\\]", "");
+        input = input.replaceAll("[\\[\\]]", "");
         String[] values = input.split(", "); // Split the input string by commas and spaces
         byte[] byteArray = new byte[values.length]; // Create a byte array of the same length
 
